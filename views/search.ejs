@@ -20,7 +20,7 @@ function addMovie() {
   var id = $button.attr('id')
   var user = "<%= user._id %>"
   $.ajax({
-    url: 'http://www.omdbapi.com/?i=' + id,
+    url: 'https://www.omdbapi.com/?i=' + id,
     type: 'GET'
   })
   .done(function(omdbData) {
@@ -85,7 +85,7 @@ function makeRows (source) {
 
 $('#search-button').on('click', function() {
   $.ajax({
-    url: 'http://www.omdbapi.com/?s=' + $inputBox.val(),
+    url: 'https://www.omdbapi.com/?s=' + $inputBox.val(),
     method: 'GET'
   })
   .done(function(data){

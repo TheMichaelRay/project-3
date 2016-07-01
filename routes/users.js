@@ -6,6 +6,7 @@ var
   userRouter = express.Router()
 
 
+
 // root route for home page
 userRouter.get('/', function (req, res) {
   User.find({})
@@ -45,6 +46,8 @@ userRouter.route('/users')
     res.json(users)
     })
   })
+
+userRouter.use(isLoggedIn)
 
 userRouter.route('/users/:id')
   .get(function (req, res) {

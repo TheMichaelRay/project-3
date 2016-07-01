@@ -49,6 +49,31 @@
   var localUserMovies = <%- localUser.local %>.movie
   var $display = $('#movie-display')
 
+  function addMovie() {
+    var $button = $(this)
+    var id = $button.attr('id')
+    var user = "<%= user._id %>"
+    $.ajax({
+      url: 'https://www.omdbapi.com/?i=' + id,
+      type: 'GET'
+    })
+    .done(function(omdbData) {
+      console.log(omdbData)
+      $.ajax({
+        url: '/users/' + user + '/movies',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(omdbData)
+      })
+      .done(function(data){
+      })
+    })
+    $button.prop('disabled', true)
+    $button.html('Liked!')
+    $button.addClass('liked')
+  }
+
   function makeRows (source) {
     $display.html('')
     // concatenate a long string to append to the user-display div
@@ -77,4 +102,6 @@
   }
 
   makeRows(userMovies)
+  $('.add-button').click(addMovie)
+  $('.liked').off(addMovie)
 </script>

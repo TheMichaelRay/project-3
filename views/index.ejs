@@ -39,7 +39,13 @@
       // avatar or other user data will be added into profile variable below when available
       // col-md-3 used to fit 4 users per row and be responsive
       var link = '<a href="/users/' + u._id + '/otherprofile'+'" >' + profilePic + newUser + '</a>'
-      var profile = '<div class="col-md-3">' + link + '</div>'
+      var likedMovie = ''
+      // gets the last movie that was liked by the user if user has liked anything
+      if (u.local.movie.length) {
+        var lastMovie = u.local.movie[u.local.movie.length-1]
+        likedMovie = '<hr><h5>Recently Liked</h5><a href="/info/' + lastMovie.imdbID + '"><h6>' + lastMovie.Title + '</h6></a>'
+      }
+      var profile = '<div class="col-md-3 thumbnail">' + link + likedMovie + '</div>'
       // add the assembled profile to the row
       profileDisplay += profile
       // end the row if it is on the 4th iteration or the last iteration
@@ -56,18 +62,5 @@
     type: 'GET'
   })
   .done(makeRows)
-  // .done(function(users){
-  //   users.forEach(function(u, i) {
-  //     if (i%4==0 && i > 0){
-  //       $display.append(clearfix)
-  //     }
-  //     // var profilePic = '<img class="responsive" src="' + u.local.avatar + '"/>'
-  //     var newUser = '<a href="/users/' + u._id + '"><h4>' + u.local.name + '</h4></a>'
-  //     var profile = '<div class="col-md-3">' + newUser + '</div>'
-  //     $display.append(profile)
-  //   })
-  //   $display.append(clearfix)
-  // })
-
 
 </script>

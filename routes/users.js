@@ -8,7 +8,9 @@ var
 
 // root route for home page
 userRouter.get('/', function (req, res) {
-  User.find({}, function(err, users) {
+  User.find({})
+    .populate('local.movie')
+    .exec(function(err, users) {
     if (err) throw err;
     res.render('index', {user: req.user, users: users})
   })
@@ -35,12 +37,14 @@ userRouter.route('/signup')
   }))
 
 userRouter.route('/users')
-.get(function (req, res) {
-  User.find({}, function (err, users) {
+  .get(function (req, res) {
+    User.find({})
+    .populate('local.movie')
+    .exec(function (err, users) {
     if (err) return console.log(err);
     res.json(users)
+    })
   })
-})
 
 userRouter.route('/users/:id')
   .get(function (req, res) {

@@ -98,7 +98,7 @@ userRouter.route('/users/:id/movies')
   })
 
 userRouter.get('/profile/edit', isLoggedIn, function(req, res) {
-  res.render('edit', {user: req.user})
+  res.render('Edit', {user: req.user})
 })
 
 userRouter.route('/users/:id/otherprofile')

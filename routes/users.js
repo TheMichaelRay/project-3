@@ -134,7 +134,7 @@ userRouter.get('/sign-out', function (req, res) {
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next()
-  res.redirect('/')
+  res.redirect('/login')
 }
 
  userRouter.get('/chetflix', function(req, res) {

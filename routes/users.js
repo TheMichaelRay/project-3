@@ -96,13 +96,23 @@ userRouter.get('/profile/edit', isLoggedIn, function(req, res) {
 
 userRouter.route('/users/:id/otherprofile')
 .get(function (req, res) {
-  User.findById(req.params.id, function(err, user) {
-    res.render('otherprofile', {user: user})
+  User.findById(req.params.id)
+    .populate('local.movie')
+    .exec(function(err, user) {
+      User.findById(req.user._id)
+      .populate('local.movie')
+      .exec(function(err, localUser) {
+        res.render('otherprofile', {user: user, localUser: localUser})
+      })
   })
 })
 
 userRouter.get('/profile', isLoggedIn, function (req, res) {
-  res.render('profile', {user: req.user})
+  User.findById(req.user._id)
+    .populate('local.movie')
+    .exec(function(err, user) {
+      res.render('profile', {user: user, localUser: user})
+    })
 })
 
 userRouter.get('/logout', function (req, res) {

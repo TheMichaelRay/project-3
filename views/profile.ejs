@@ -23,6 +23,59 @@
           <a href="/profile/edit" class= "btn btn-default">Edit</a>
         </div>
       </div>
+      <div class="row">
+        <div class="col-s-10">
+          <h3><%= user.local.name %> likes:</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Released</th>
+                <th>Type</th>
+                <th>More Info</th>
+                <th>Like</th>
+              </tr>
+            </thead>
+            <tbody id="movie-display">
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 </div>
 </div>
+
+<script type="text/javascript">
+  var userMovies = <%- user.local %>.movie
+  var localUserMovies = <%- localUser.local %>.movie
+  var $display = $('#movie-display')
+
+  function makeRows (source) {
+    $display.html('')
+    // concatenate a long string to append to the user-display div
+    // start with declaring variables that will be reused
+    var rowStart = '<tr>'
+    var rowEnd = '</tr>'
+    var movieDisplay = ''
+    // loop through the users that were returned in the ajax call
+    source.forEach(function(movie, i) {
+      movieDisplay += rowStart
+      var title = '<th>' + movie.Title + '</th>'
+      var year = '<td>' + movie.Year + '</td>'
+      var type = '<td>' + movie.Type + '</td>'
+      var infoButton = '<td><a href="/info/' + movie.imdbID + '" class="btn btn-primary btn">More Info</a></td>'
+      var likeButton = '<td><button id="' + movie.imdbID + '" class="btn btn-secondary btn add-button text-right">Like!</button></td>'
+      localUserMovies.forEach(function(m) {
+        // checks to see if any of the movie results are already in this user's profile
+        if (m.imdbID == movie.imdbID) {
+          // disables the button click and changes the text to "liked"
+          likeButton = '<td><button id="' + movie.imdbID + '" class="btn btn-secondary btn add-button text-right liked" disabled>Liked!</button></td>'
+        }
+      })
+      movieDisplay += rowStart + title + year + type + infoButton + likeButton + rowEnd
+    })
+    $display.append(movieDisplay)
+  }
+
+  makeRows(userMovies)
+</script>

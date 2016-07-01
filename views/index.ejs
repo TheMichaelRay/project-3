@@ -35,10 +35,11 @@
       }
       // for when we get avatars working correctly...
       var profilePic = '<img class="img-responsive" src="' + u.local.avatar + '"/>'
-      var newUser = '<a href="/users/' + u._id + '/otherprofile'+'" >' + u.local.name + '</a>'
+      var newUser = '<h4>' + u.local.name + '</h4>'
       // avatar or other user data will be added into profile variable below when available
       // col-md-3 used to fit 4 users per row and be responsive
-      var profile = '<div class="col-md-3">' + profilePic + newUser + '</div>'
+      var link = '<a href="/users/' + u._id + '/otherprofile'+'" >' + profilePic + newUser + '</a>'
+      var profile = '<div class="col-md-3">' + link + '</div>'
       // add the assembled profile to the row
       profileDisplay += profile
       // end the row if it is on the 4th iteration or the last iteration

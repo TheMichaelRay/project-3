@@ -1,8 +1,10 @@
-<div class="input-group">
-  <input type="text" id="search-field" class="form-control" placeholder="Search movies..." value="">
-  <button id="search-button" class="btn btn-default btn-sl active search-button" type="button">Go!</button>
-  <div id="results" class="text-center"></div>
-</div>
+<form id="search-form" >
+  <div class="form-group">
+    <input type="text" id="search-field" class="form-control col-sm-10" placeholder="Search movies..." value="" autocomplete="off" />
+    <button id="search-button" class="btn btn-default btn-sl active search-button col-sm-2 hidden" type="submit">Go!</button>
+  </div>
+</form>
+<div id="results" class="text-center"></div>
 
 <script type="text/javascript">
 var $inputBox = $('#search-field')
@@ -95,4 +97,7 @@ $('#search-button').on('click', function() {
     $('.liked').off(addMovie)
   })
 })
+$("#search-form").submit(function(e){
+    return false;
+});
 </script>

@@ -52,7 +52,7 @@
   function addMovie() {
     var $button = $(this)
     var id = $button.attr('id')
-    var user = "<%= user._id %>"
+    var user = "<%= localUser._id %>"
     $.ajax({
       url: 'https://www.omdbapi.com/?i=' + id,
       type: 'GET'
